@@ -1,1 +1,0 @@
-Git doesn't store empty files and my command line in my remote repo is being weird, therefore this. Let's hope this works, then I can upload the war folder online.
