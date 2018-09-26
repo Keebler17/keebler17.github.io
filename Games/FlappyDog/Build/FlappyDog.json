@@ -1,6 +1,6 @@
 {
 "companyName": "DefaultCompany",
-"productName": "help",
+"productName": "FlappyDog",
 "dataUrl": "FlappyDog.data.unityweb",
 "wasmCodeUrl": "FlappyDog.wasm.code.unityweb",
 "wasmFrameworkUrl": "FlappyDog.wasm.framework.unityweb",
