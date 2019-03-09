@@ -4,20 +4,6 @@
 		<title>Home</title>
 		<link rel="stylesheet" href="index.css">
 		<script src="jquery-3.3.1.min.js"></script>
-		<script>
-			$(".themeswitch").click(function() {
-				var theme = $(".theme").html();
-				if(theme == "Light") {
-					$(".theme").html("Dark");
-					$("html").css("background-color", "#103166");
-					$("html").css("color", "#ffffff")
-				} else {
-					$(".theme").html("Light");
-					$("html").css("background-color", "#ffffff");
-					$("html").css("color", "#000000");
-				}
-			});
-		</script>
 	</head>
 	<body>
 		<div class="navbar">
@@ -29,21 +15,7 @@
 			<div class="themeswitch">
 				<span class="theme">Light</span>
 			</div>
-			<p>message for debugging purposes: 833</p>
-			<script>
-			$(".themeswitch").click(function() {
-				var theme = $(".theme").html();
-				if(theme == "Light") {
-					$(".theme").html("Dark");
-					$("html").css("background-color", "#103166");
-					$("html").css("color", "#ffffff")
-				} else {
-					$(".theme").html("Light");
-					$("html").css("background-color", "#ffffff");
-					$("html").css("color", "#000000");
-				}
-			});
-		</script>
 		</div>
+		<script src="theme.js"></script>
 	</body>
 </html>
