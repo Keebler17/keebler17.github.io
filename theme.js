@@ -1,4 +1,4 @@
-$(".themeswitch").click(function() {
+$(".theme").click(function() {
 	let bg = $("html").css("color")
 	if(bg == "#103166") {
 		$("html").css("background-color", "#ffffff");
