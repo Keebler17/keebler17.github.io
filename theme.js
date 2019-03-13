@@ -1,5 +1,5 @@
-$(".theme").click(function() {
-	let bg = $("html").css("color")
+function switchTheme() {
+	var bg = $("html").css("color")
 	if(bg == "#103166") {
 		$("html").css("background-color", "#ffffff");
 		$(".site").css("color", "#000000");
@@ -7,4 +7,4 @@ $(".theme").click(function() {
 		$("html").css("background-color", "#103166");
 		$(".site").css("color", "#ffffff")
 	}
-});
+}
