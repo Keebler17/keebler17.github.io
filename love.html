@@ -7,4 +7,47 @@ x
 	function ship() {
 		document.getElementById("percentage").innerHTML = "0%";
 	}
+	
+	function bookmark() {
+		var title = "love calculator";
+		var url = "javascript:(function({document.write(\"<input type=\"text\" name=\"person1\"></input>
+x
+<input type=\"text\" name=\"person2\"></input>
+<button onclick=\"ship()\">ship</button>
+<p id=\"percentage\"></p>
+<script>
+	function ship() {
+		document.getElementById(\"percentage\").innerHTML = \"0%\";
+	}
+</script>");})();";
+		if (window.sidebar)
+ {// Firefox
+  window.sidebar.addPanel(title, url, '');
+ }
+ else if (window.opera && window.print)
+ {// Opera
+  var elem = document.createElement('a');
+  elem.setAttribute('href',url);
+  elem.setAttribute('title',title);
+  elem.setAttribute('rel','sidebar');
+  elem.click();//this.title=document.title;
+ }
+ else if (document.all)
+ {// ie
+  window.external.AddFavorite(url, title);
+ }
+	}
 </script>
+
+<button onclick="bookmark();">Embed bookmark (IE, Firefox)</button>
+<h3>On Chrome/Opera/Safari, add this to bookmarks:</h3>
+<code>javascript:(function({document.write(\"<input type=\"text\" name=\"person1\"></input>
+x
+<input type=\"text\" name=\"person2\"></input>
+<button onclick=\"ship()\">ship</button>
+<p id=\"percentage\"></p>
+<script>
+	function ship() {
+		document.getElementById(\"percentage\").innerHTML = \"0%\";
+	}
+</script>");})();</code>
