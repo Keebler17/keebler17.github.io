@@ -7,47 +7,9 @@ x
 	function ship() {
 		document.getElementById("percentage").innerHTML = "0%";
 	}
-	
-	function bookmark() {
-		var title = "love calculator";
-		var url = "javascript:(function({document.write(\"<input type=\"text\" name=\"person1\"></input>
-x
-<input type=\"text\" name=\"person2\"></input>
-<button onclick=\"ship()\">ship</button>
-<p id=\"percentage\"></p>
-<script>
-	function ship() {
-		document.getElementById(\"percentage\").innerHTML = \"0%\";
-	}
-</script>");})();";
-		if (window.sidebar)
- {// Firefox
-  window.sidebar.addPanel(title, url, '');
- }
- else if (window.opera && window.print)
- {// Opera
-  var elem = document.createElement('a');
-  elem.setAttribute('href',url);
-  elem.setAttribute('title',title);
-  elem.setAttribute('rel','sidebar');
-  elem.click();//this.title=document.title;
- }
- else if (document.all)
- {// ie
-  window.external.AddFavorite(url, title);
- }
-	}
 </script>
 
-<button onclick="bookmark();">Embed bookmark (IE, Firefox)</button>
-<h3>On Chrome/Opera/Safari, add this to bookmarks:</h3>
-<code>javascript:(function({document.write(\"<input type=\"text\" name=\"person1\"></input>
-x
-<input type=\"text\" name=\"person2\"></input>
-<button onclick=\"ship()\">ship</button>
-<p id=\"percentage\"></p>
-<script>
-	function ship() {
-		document.getElementById(\"percentage\").innerHTML = \"0%\";
-	}
-</script>");})();</code>
+<h3>For a bookmarklet, bookmark this:</h3>
+<code>
+javascript:(function()%7Bdocument.write(%22%26lt%3Binput%20type%3D%5C%22text%5C%22%20name%3D%5C%22person1%5C%22%26gt%3B%26lt%3B%2Finput%26gt%3Bx%26lt%3Binput%20type%3D%5C%22text%5C%22%20name%3D%5C%22person2%5C%22%26gt%3B%26lt%3B%2Finput%26gt%3B%26lt%3Bbutton%20onclick%3D%5C%22ship()%5C%22%26gt%3Bship%26lt%3B%2Fbutton%26gt%3B%26lt%3Bp%20id%3D%5C%22percentage%5C%22%26gt%3B%26lt%3B%2Fp%26gt%3B%26lt%3Bscript%26gt%3Bfunction%20ship()%20%7Bdocument.getElementById(%5C%22percentage%5C%22).innerHTML%20%3D%20%5C%220%25%5C%22%3B%7D%26lt%3B%2Fscript%26gt%3B%22)%7D)()
+</code>
