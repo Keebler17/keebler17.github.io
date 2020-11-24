@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <h1>WORD SEARHC SOLVER TOOL: KEEBl:eR(17)</h1>
+    <p>List your words here. One word per line!</p>
+    <p><small>Does not work on 1/2 letter words</small></p>
+    <textarea rows="20" columns="40" id="wordList">abc</textarea>
+
+    <br>
+
+    <p>Make sure that you expand the box below enough (by dragging in the bottom right) so that its big enough to fit one line of your real word search into one line in the  box.</p>
+    <textarea rows="20" columns="50" id="map" value="abc">abc</textarea>
+  <br>
+  <button onclick="solve();">Solve!</button>
+
+  <p>Results:</p>
+  <p id="results"></p>
+
+
+
+  </body>
+</html>
