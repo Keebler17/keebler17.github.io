@@ -19,8 +19,7 @@ function solve() {
 
   let results = "";
 
-  console.log(highlight);
-  console.log(highlight.indexOf([0, 0]));
+  console.log("Highlight array: " + highlight);
 
   for(let y = 0; y < ylen; y++) {
     contPlace: for(let x = 0; x < xlen; x++) {
@@ -49,13 +48,13 @@ function solve() {
 
 function parseWordList() {
   console.log("Parsing word list");
-  let listRaw = document.getElementById("wordList").value;
+  let listRaw = document.getElementById("wordList").value.toLowerCase();
   words = listRaw.split("\n")
 }
 
 function parseSearchMap() {
   console.log("Parsing search map");
-  let mapRaw = document.getElementById("map").value;
+  let mapRaw = document.getElementById("map").value.toLowerCase();
   let mapRawArr = mapRaw.split("\n");
   console.log(mapRawArr);
   for(let i = 0; i < mapRawArr.length; i++) {
@@ -90,7 +89,7 @@ function checkIfWord(x, y) {
       if(words[i].length != 1) {
         checkIfSecondLetter(x, y, words[i]);
       } else {
-        console.log("gg");
+        highlight.push([x, y])
       }
     }
   }
@@ -114,8 +113,6 @@ function checkIfSecondLetter(x, y, word) {
   } else if(getCh(x+1, y+1) === word.charAt(1)) {
     checkIfFullWord(x, y, 1, 1, word);
   } else if(getCh(x+1, y) === word.charAt(1)) {
-    console.log("x: " + x + ", y: " + y)
-    console.log(getCh(x+1, y));
     checkIfFullWord(x, y, 1, 0, word);
   } else if(getCh(x+1, y-1) === word.charAt(1)) {
     checkIfFullWord(x, y, 1, -1, word);
@@ -129,8 +126,7 @@ function checkIfSecondLetter(x, y, word) {
 
 function checkIfFullWord(x, y, xdir, ydir, word) {
   if(word.length == 2) {
-    console.log(word)
-    //highlight.push([x, y]);
+    highlight.push([x, y]);
     return;
   }
 
