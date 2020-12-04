@@ -166,5 +166,7 @@ function synthesize(rna) {
     aminoAcidArr[i] = rnaCodon.get(rnaPairs[i])
   }
 
-  console.log(aminoAcidArr)
+  for(let i = 0; i < aminoAcidArr.length; i++) {
+    document.getElementById("results").innerHTML = "d"
+  }
 }

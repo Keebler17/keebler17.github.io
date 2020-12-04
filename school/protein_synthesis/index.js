@@ -1,5 +1,3 @@
-rnaValue = ""
-
 dnaCodon = new Map();
 
 dnaCodon.set("UUU", "Phe")
@@ -92,15 +90,26 @@ rnaCodon = dnaCodon
 
 rnaPairs = []
 
+rnaValue = ""
+
+
 function dna() {
   dnaValue = document.getElementById("dna").value.toUpperCase()
   rnaValue = translateDna(invertDna(dnaValue))
-  synthesize(rnaValue)
+  getAminoAcids()
 }
 
 function rna() {
   rnaValue = document.getElementById("rna").value.toUpperCase()
-  synthesize(rnaValue)
+  getAminoAcids()
+}
+
+function getAminoAcids() {
+  rnaPairs = []
+  out = synthesize(rnaValue)
+  if(!(out === 0)) {
+    document.getElementById("results").innerHTML = out
+  }
 }
 
 function invertDna(dnaInput) {
@@ -166,5 +175,14 @@ function synthesize(rna) {
     aminoAcidArr[i] = rnaCodon.get(rnaPairs[i])
   }
 
-  console.log(aminoAcidArr)
+  document.getElementById("results").innerHTML = "Results:<br>"
+
+  for(let i = 0; i < aminoAcidArr.length; i++) {
+    document.getElementById("results").innerHTML += aminoAcidArr[i]
+    if(i+1 < aminoAcidArr.length) {
+      document.getElementById("results").innerHTML += "/"
+    }
+  }
+
+  return 0;
 }
