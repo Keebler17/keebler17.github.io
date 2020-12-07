@@ -6,16 +6,18 @@
     <script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
   </head>
   <body>
-
+    <p><small>NOTE: there is a cookie from the desmos embed (so cool!) it will save if you click solve! if you uncheck the desmos embed you do not get the cookie :)</small></p>
     <p>Point 1</p>
-    <input id="x1" type="number"><input id="y1" type="number">
+    <input id="x1" type="number"></input><input id="y1" type="number"></input>
     <p>Point 2</p>
-    <input id="x2" type="number"><input id="y2" type="number">
+    <input id="x2" type="number"></input><input id="y2" type="number"></input>
     <br>
     <button onclick="solve()">Solve</button>
+    <input id="desmos" type="checkbox" checked>desmos embed</input>
     <p>Results:</p>
     <p id="slope"></p>
     <p id="pointSlope"></p>
+    <p id="slopeIntercept"</p>
 
 
     <div id="calculator" style="width: 600px; height: 400px;"></div>

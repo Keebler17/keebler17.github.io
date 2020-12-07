@@ -1,5 +1,6 @@
 var slope = 0
 var pointSlope = ""
+var slopeIntercept = ""
 
 first = true
 
@@ -16,14 +17,19 @@ function solve() {
   document.getElementById("slope").innerHTML = slope
   pointSlope = getPointSlope(x1, x2, y1, y2)
   document.getElementById("pointSlope").innerHTML = pointSlope
+  slopeIntercept = getSlopeIntercept(x1, x2, y1, y2)
+  document.getElementById("slopeIntercept").innerHTML = slopeIntercept
 
-  if(first) {
-    elt = document.getElementById('calculator');
-    calculator = Desmos.GraphingCalculator(elt);
-    first = false
+
+  if(document.getElementById("desmos").checked) {
+    if(first) {
+      elt = document.getElementById('calculator')
+      calculator = Desmos.GraphingCalculator(elt)
+      first = false
+    }
+
+    calculator.setExpression({ id: 'graph1', latex: pointSlope })
   }
-  calculator.setExpression({ id: 'graph1', latex: pointSlope });
-
 }
 
 
@@ -42,5 +48,11 @@ function getSlope(x1, x2, y1, y2) {
 }
 
 function getPointSlope(x1, x2, y1, y2) {
-  return "x-" + x1 + "=" + slope + "(y-" + y1 + ")"
+  return "x-" + x1 + "=" + getSlope(x1, x2, y1, y2) + "(y-" + y1 + ")"
+}
+
+function getSlopeIntercept(x1, x2, y1, y2) {
+  slope = getSlope(x1, x2, y1, y2)
+  yIntercept = y1-slope*x1
+  return "y=" + slope + "x + " + yIntercept
 }
