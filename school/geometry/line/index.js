@@ -20,7 +20,6 @@ function solve() {
   slopeIntercept = getSlopeIntercept(x1, x2, y1, y2)
   document.getElementById("slopeIntercept").innerHTML = slopeIntercept
 
-
   if(document.getElementById("desmos").checked) {
     if(first) {
       elt = document.getElementById('calculator')
