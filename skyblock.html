@@ -1,4 +1,44 @@
-<script>
+<html>
+
+<head>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+
+</head>
+
+<body>
+	<h1 id="KFINX">waiting</h1>
+	<h1 id="recomb">waiting</h1>
+	<h1 id="recomb2">waiting</h1>
+	
+	<h2>KFINX graph</h2>
+	
+	<div class="wrapper" style="max-width: 800px; margin: 0 auto;">
+		<canvas id="KFINXChart"></canvas>
+	</div>
+	
+	<script>
+
+var ctx = document.getElementById('KFINXChart');
+var myChart = new Chart(ctx, {
+	type: 'line',
+	data: {
+		datasets: [{
+			label: "cool",
+			data: []
+		}]
+	},
+	options: {
+		responsive: true,
+		scales: {
+			xAxes: [{
+				type: 'linear'
+			}]
+		}
+	}
+});
+
 var key = "eb7dc38d-833f-4987-bfab-383028cbeb80"
 
 // WHEAT, HAY_BLOCK, CARROT_ITEM, POTATO_ITEM, PUMPKIN, MELON, SEEDS, RED_MUSHROOM, BROWN_MUSHROOM, INK_SACK:3, CACTUS, SUGAR_CANE, NETHER_STALK
@@ -11,9 +51,15 @@ http.send();
 
 var value = 0
 
+
+
+
 http.onreadystatechange = (e) => {
 	console.log(JSON.parse(http.responseText))
 	var response = JSON.parse(http.responseText);
+	
+	let valuePrev = value;
+	
 	value += response.products.WHEAT.quick_status.buyPrice;
 	value += response.products.HAY_BLOCK.quick_status.buyPrice;
 	value += response.products.CARROT_ITEM.quick_status.buyPrice;
@@ -28,17 +74,24 @@ http.onreadystatechange = (e) => {
 	value += response.products.SUGAR_CANE.quick_status.buyPrice;
 	value += response.products.NETHER_STALK.quick_status.buyPrice;
 	
+	if(value != valuePrev) {
+		myChart.data.datasets.forEach((dataset) => {
+			dataset.data.push({x: dataset.data.length-1, y: value})
+		});
+		myChart.update();
+	}
+	
 	document.getElementById("KFINX").innerHTML = "KEEBLER FARMING INDEX: " + value;
 	document.getElementById("recomb").innerHTML = "RECOMBOBULATOR BUY:" + response.products.RECOMBOBULATOR_3000.quick_status.buyPrice
 	document.getElementById("recomb2").innerHTML = "RECOMBOBULATOR SELL:" + response.products.RECOMBOBULATOR_3000.quick_status.sellPrice
+	
+	value = 0
+	
+	http.open("GET", url);
+	http.send();
 }
 
-setTimeout(function() {
-	location.reload()
-}, 1000);
 
 </script>
-
-<h1 id="KFINX">waiting</h1>
-<h1 id="recomb">waiting</h1>
-<h1 id="recomb2">waiting</h1>
+</body>
+</html>
