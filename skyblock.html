@@ -55,7 +55,8 @@ var value = 0
 
 
 http.onreadystatechange = (e) => {
-	console.log(JSON.parse(http.responseText))
+	
+	setTimeout(function() {
 	var response = JSON.parse(http.responseText);
 	
 	let valuePrev = value;
@@ -89,6 +90,7 @@ http.onreadystatechange = (e) => {
 	
 	http.open("GET", url);
 	http.send();
+	}, 1000);
 }
 
 
