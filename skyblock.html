@@ -25,7 +25,7 @@ var myChart = new Chart(ctx, {
 	type: 'line',
 	data: {
 		datasets: [{
-			label: "cool",
+			label: 'KFINX',
 			data: []
 		}]
 	},
@@ -33,7 +33,11 @@ var myChart = new Chart(ctx, {
 		responsive: true,
 		scales: {
 			xAxes: [{
-				type: 'linear'
+				type: 'linear',
+				label: 'Seconds'
+			}],
+			yAxes: [{
+				label: 'Price'
 			}]
 		}
 	}
@@ -51,46 +55,58 @@ http.send();
 
 var value = 0
 
+var loops = 0;
 
+var intervalSet = false;
 
+var response;
 
 http.onreadystatechange = (e) => {
 	
 	setTimeout(function() {
-	var response = JSON.parse(http.responseText);
+		response = JSON.parse(http.responseText);
+		
+		
 	
-	let valuePrev = value;
+		http.open("GET", url);
+		http.send();
+	}, 1000);
 	
-	value += response.products.WHEAT.quick_status.buyPrice;
-	value += response.products.HAY_BLOCK.quick_status.buyPrice;
-	value += response.products.CARROT_ITEM.quick_status.buyPrice;
-	value += response.products.POTATO_ITEM.quick_status.buyPrice;
-	value += response.products.PUMPKIN.quick_status.buyPrice;
-	value += response.products.MELON.quick_status.buyPrice;
-	value += response.products.SEEDS.quick_status.buyPrice;
-	value += response.products.RED_MUSHROOM.quick_status.buyPrice;
-	value += response.products.BROWN_MUSHROOM.quick_status.buyPrice;
-	value += response.products['INK_SACK:3'].quick_status.buyPrice;
-	value += response.products.CACTUS.quick_status.buyPrice;
-	value += response.products.SUGAR_CANE.quick_status.buyPrice;
-	value += response.products.NETHER_STALK.quick_status.buyPrice;
-	
-	if(value != valuePrev) {
-		myChart.data.datasets.forEach((dataset) => {
-			dataset.data.push({x: dataset.data.length-1, y: value})
-		});
-		myChart.update();
+	if(!intervalSet) {
+		intervalSet = true;
+		setInterval(function() {
+			
+			let valuePrev = value;
+			value = 0
+			value += response.products.WHEAT.quick_status.buyPrice;
+			value += response.products.HAY_BLOCK.quick_status.buyPrice;
+			value += response.products.CARROT_ITEM.quick_status.buyPrice;
+			value += response.products.POTATO_ITEM.quick_status.buyPrice;
+			value += response.products.PUMPKIN.quick_status.buyPrice;
+			value += response.products.MELON.quick_status.buyPrice;
+			value += response.products.SEEDS.quick_status.buyPrice;
+			value += response.products.RED_MUSHROOM.quick_status.buyPrice;
+			value += response.products.BROWN_MUSHROOM.quick_status.buyPrice;
+			value += response.products['INK_SACK:3'].quick_status.buyPrice;
+			value += response.products.CACTUS.quick_status.buyPrice;
+			value += response.products.SUGAR_CANE.quick_status.buyPrice;
+			value += response.products.NETHER_STALK.quick_status.buyPrice;
+			
+			if(value != valuePrev) {
+				myChart.data.datasets.forEach((dataset) => {
+					dataset.data.push({x: loops, y: value})
+				});
+				myChart.update();
+			}
+			
+			document.getElementById("KFINX").innerHTML = "KEEBLER FARMING INDEX: " + value;
+			document.getElementById("recomb").innerHTML = "RECOMBOBULATOR BUY:" + response.products.RECOMBOBULATOR_3000.quick_status.buyPrice;
+			document.getElementById("recomb2").innerHTML = "RECOMBOBULATOR SELL:" + response.products.RECOMBOBULATOR_3000.quick_status.sellPrice;
+			
+			loops++;
+		}, 1000);
 	}
 	
-	document.getElementById("KFINX").innerHTML = "KEEBLER FARMING INDEX: " + value;
-	document.getElementById("recomb").innerHTML = "RECOMBOBULATOR BUY:" + response.products.RECOMBOBULATOR_3000.quick_status.buyPrice
-	document.getElementById("recomb2").innerHTML = "RECOMBOBULATOR SELL:" + response.products.RECOMBOBULATOR_3000.quick_status.sellPrice
-	
-	value = 0
-	
-	http.open("GET", url);
-	http.send();
-	}, 1000);
 }
 
 
