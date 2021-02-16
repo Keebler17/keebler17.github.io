@@ -1,143 +1,81 @@
-	<html>
-		<head>
-			<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-		</head>
-		<body>
-			<h1 id="KFINX">waiting</h1>
-			<h1 id="recomb">waiting</h1>
-			<h1 id="recomb2">waiting</h1>
-			
-			<h2>KFINX graph</h2>
-			
-			<div class="wrapper" style="max-width: 800px; margin: 0 auto;">
-				<canvas id="KFINXChart"></canvas>
-			</div>
-			
-			<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase.js"></script> <!--
-			<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
-			<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-analytics.js"></script>
-			<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
-			<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>-->
-			
-			
-			<script>
+<html>
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+	</head>
+	<body>
+		<h1 id="KFINX">waiting</h1>
+		<h2>KFINX graph (all time)</h2>
+		
+		<div class="wrapper" style="max-width: 800px; margin: 0 auto;">
+			<canvas id="KFINXChart"></canvas>
+		</div>
+		
+		<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase.js"></script> <!--
+		<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>-->
+		
+		
+		<script>
 
-				const EPOCH_OFFSET = 1613457000;
-				
-				var firebaseConfig = {
-		apiKey: "AIzaSyCGxIe_lrmh6YHHCKyxHTvg_XXfTcYn_04",
-		authDomain: "kfinx-1b096.firebaseapp.com",
-		databaseURL: "https://kfinx-1b096-default-rtdb.firebaseio.com",
-		projectId: "kfinx-1b096",
-		storageBucket: "kfinx-1b096.appspot.com",
-		messagingSenderId: "848838980043",
-		appId: "1:848838980043:web:d0a79ba56c109db9f6464e",
-		measurementId: "G-5XLBSFWLEB"
-	  };
-				
-				firebase.initializeApp(firebaseConfig);
-				firebase.analytics();
-				
-				var database = firebase.database();
-				
+			const EPOCH_OFFSET = 1613457000;
+			
+			var firebaseConfig = {
+    apiKey: "AIzaSyCGxIe_lrmh6YHHCKyxHTvg_XXfTcYn_04",
+    authDomain: "kfinx-1b096.firebaseapp.com",
+    databaseURL: "https://kfinx-1b096-default-rtdb.firebaseio.com",
+    projectId: "kfinx-1b096",
+    storageBucket: "kfinx-1b096.appspot.com",
+    messagingSenderId: "848838980043",
+    appId: "1:848838980043:web:d0a79ba56c109db9f6464e",
+    measurementId: "G-5XLBSFWLEB"
+  };
+			
+			firebase.initializeApp(firebaseConfig);
+			firebase.analytics();
+			
+			var database = firebase.database();
+			
 
-				var ctx = document.getElementById('KFINXChart');
-				var myChart = new Chart(ctx, {
-					type: 'line',
-					data: {
-						datasets: [{
-							label: 'KFINX',
-							data: []
+			var ctx = document.getElementById('KFINXChart');
+			var myChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					datasets: [{
+						label: 'KFINX',
+						data: []
+					}]
+				},
+				options: {
+					responsive: true,
+					scales: {
+						xAxes: [{
+							type: 'linear',
+							label: 'Seconds'
+						}],
+						yAxes: [{
+							label: 'Price'
 						}]
-					},
-					options: {
-						responsive: true,
-						scales: {
-							xAxes: [{
-								type: 'linear',
-								label: 'Seconds'
-							}],
-							yAxes: [{
-								label: 'Price'
-							}]
-						}
 					}
-				});
-
-				var key = "eb7dc38d-833f-4987-bfab-383028cbeb80"
-
-				// WHEAT, HAY_BLOCK, CARROT_ITEM, POTATO_ITEM, PUMPKIN, MELON, SEEDS, RED_MUSHROOM, BROWN_MUSHROOM, INK_SACK:3, CACTUS, SUGAR_CANE, NETHER_STALK
-				// https://api.hypixel.net/skyblock/bazaar?key=keyhere
-
-				const http = new XMLHttpRequest();
-				const url = "https://api.hypixel.net/skyblock/bazaar?key=" + key;
-				http.open("GET", url);
-				http.send();
-
-				var value = 0
-
-				var loops = 0;
-
-				var intervalSet = false;
-
-				var response;
-
-				http.onreadystatechange = (e) => {
-					
-					setTimeout(function() {
-						response = JSON.parse(http.responseText);
-						
-						
-					
-						http.open("GET", url);
-						http.send();
-					}, 1000);
-					
-					if(!intervalSet) {
-						intervalSet = true;
-						setInterval(function() {
-							
-							let valuePrev = value;
-							value = 0
-							value += response.products.WHEAT.quick_status.buyPrice;
-							value += response.products.HAY_BLOCK.quick_status.buyPrice;
-							value += response.products.CARROT_ITEM.quick_status.buyPrice;
-							value += response.products.POTATO_ITEM.quick_status.buyPrice;
-							value += response.products.PUMPKIN.quick_status.buyPrice;
-							value += response.products.MELON.quick_status.buyPrice;
-							value += response.products.SEEDS.quick_status.buyPrice;
-							value += response.products.RED_MUSHROOM.quick_status.buyPrice;
-							value += response.products.BROWN_MUSHROOM.quick_status.buyPrice;
-							value += response.products['INK_SACK:3'].quick_status.buyPrice;
-							value += response.products.CACTUS.quick_status.buyPrice;
-							value += response.products.SUGAR_CANE.quick_status.buyPrice;
-							value += response.products.NETHER_STALK.quick_status.buyPrice;
-							
-							if(value != valuePrev) {
-								myChart.data.datasets.forEach((dataset) => {
-									dataset.data.push({x: loops, y: value})
-									database.ref("/" + Date.now()).set(value)
-								});
-								myChart.update();
-							}
-							
-							document.getElementById("KFINX").innerHTML = "KEEBLER FARMING INDEX: " + value;
-							document.getElementById("recomb").innerHTML = "RECOMBOBULATOR BUY:" + response.products.RECOMBOBULATOR_3000.quick_status.buyPrice;
-							document.getElementById("recomb2").innerHTML = "RECOMBOBULATOR SELL:" + response.products.RECOMBOBULATOR_3000.quick_status.sellPrice;
-							
-							loops++;
-						}, 1000);
-					}
-					
 				}
-
-				function push() {
-					
-				}
-
-
-			</script>
+			});
 			
-			<button onclick="push()">a</button>
-		</body>
-	</html>
+			var ref = database.ref("/");
+			
+			
+			
+			ref.once('value').then(function(dataSnapshot) {
+				dataSnapshot.forEach(function(childSnapshot) {
+					myChart.data.datasets.forEach((dataset) => {
+						dataset.data.push({x: childSnapshot.key, y: childSnapshot.val()})
+					});
+				});
+				myChart.update();
+			});
+					
+				
+
+		</script>
+	</body>
+</html>
